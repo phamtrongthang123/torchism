@@ -8,3 +8,4 @@ seaborn
 tqdm
 rich 
 tensorboard
+pytorch-lightning >= 1.0.0rc2

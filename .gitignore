@@ -132,3 +132,5 @@ runs/
 *.pth
 
 env_*
+lightning_logs*
+MNIST*
