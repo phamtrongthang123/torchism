@@ -37,7 +37,7 @@ class NeptuneLogger(LoggerTemplate):
         run = neptune.init(
             project=project_name,
             api_token=api_token,
-            source_files=["*.py"],
+            source_files=["**/*.py","**/*.yaml", "*.py"],
             mode=mode,
         )
 

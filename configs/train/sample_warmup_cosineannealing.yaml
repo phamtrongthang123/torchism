@@ -23,7 +23,7 @@ metric:
 scheduler:
     name: WarmupLinearCosineAnnealing
     args:
-        lr_warmup_epochs: 5
+        lr_warmup_epochs: 50
 dataset:
     train:
         name: MNISTDataset
@@ -47,7 +47,7 @@ dataset:
                 batch_size: 1024
                 pin_memory: True
 trainer:
-    nepochs: 50
+    nepochs: 6000
     val_step: 1
     log_step: 1
     log_dir: runs
