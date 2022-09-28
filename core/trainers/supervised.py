@@ -81,7 +81,7 @@ class SupervisedTrainer:
         # 5: Define Scheduler
         set_seed(config['seed'])
         self.scheduler = get_instance(config['scheduler'],
-                                      optimizer=self.optimizer)
+                                      optimizer=self.optimizer, t_total=config['trainer']['nepochs'])
 
         # 6: Define metrics
         set_seed(config['seed'])
@@ -225,7 +225,9 @@ class SupervisedTrainer:
                 print('-----------------------------------')
 
                 # 3: Learning rate scheduling
-                self.scheduler.step(self.val_loss[-1])
+                # unless it is ReduceLROnPlateau, we don't need to pass the metric value
+                # self.scheduler.step(self.val_loss[-1])
+                self.scheduler.step()
 
                 # 4: Saving checkpoints
                 if not self.debug:
