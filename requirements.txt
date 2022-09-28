@@ -8,3 +8,4 @@ seaborn
 tqdm
 rich 
 tensorboard
+neptune-client

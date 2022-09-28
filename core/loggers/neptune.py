@@ -1,6 +1,6 @@
 import os
 from typing import Optional, Dict, List
-import neptune
+import neptune.new as neptune
 import sys
 
 from .logger_template import LoggerTemplate
@@ -10,6 +10,7 @@ class NeptuneLogger(LoggerTemplate):
         self,
         project_name: str,
         name: str,
+        path: str,
         api_token: Optional[str]=None,
         model_params: Optional[Dict]=None,
         tags: Optional[List[str]]=None,
@@ -31,8 +32,9 @@ class NeptuneLogger(LoggerTemplate):
             api_token = os.environ.get("NEPTUNE_API_TOKEN", None)
             if api_token is None:
                 raise ValueError("NEPTUNE_API_TOKEN not found")
-
-        run = neptune.init_run(
+        self.path=path
+        os.makedirs(path, exist_ok=True)
+        run = neptune.init(
             project=project_name,
             api_token=api_token,
             source_files=["*.py"],

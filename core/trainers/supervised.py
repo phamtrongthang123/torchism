@@ -9,7 +9,7 @@ from ..utils.random_seed import set_seed
 from ..utils.getter import get_instance
 from ..utils.meter import AverageValueMeter
 from ..utils.device import move_to, detach
-from ..loggers import TensorboardLogger
+from ..loggers import TensorboardLogger, NeptuneLogger
 
 __all__ = ['SupervisedTrainer']
 
@@ -40,7 +40,8 @@ class SupervisedTrainer:
         # Instantiate loggers
         self.save_dir = os.path.join(self.config['trainer']['log_dir'],
                                      self.train_id)
-        self.tsboard = TensorboardLogger(path=self.save_dir)
+        # self.tsboard = TensorboardLogger(path=self.save_dir)
+        self.tsboard = NeptuneLogger(project_name="phamtrongthang123/torchism", name="test", path=self.save_dir)
 
     def load_config_dict(self, config):
         # Get device
