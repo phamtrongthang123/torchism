@@ -20,6 +20,9 @@ loss:
 metric:
     - name: Accuracy
       args:
+    - name: F1
+      args:
+        nclasses: 10
 scheduler:
     name: WarmupLinearCosineAnnealing
     args:

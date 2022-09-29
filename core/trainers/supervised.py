@@ -41,7 +41,7 @@ class SupervisedTrainer:
         self.save_dir = os.path.join(self.config['trainer']['log_dir'],
                                      self.train_id)
         # self.tsboard = TensorboardLogger(path=self.save_dir)
-        self.tsboard = NeptuneLogger(project_name="phamtrongthang123/torchism", name="test", path=self.save_dir, model_params=config)
+        self.tsboard = NeptuneLogger(project_name="thesis-master/torchism", name="test", path=self.save_dir, model_params=config)
 
     def load_config_dict(self, config):
         # Get device
@@ -162,8 +162,11 @@ class SupervisedTrainer:
         print('+ Training result')
         avg_loss = total_loss.value()[0]
         print('Loss:', avg_loss)
-        for m in self.metric.values():
-            m.summary()
+        for k in self.metric.keys():
+            m = self.metric[k].value()
+            self.metric[k].summary()
+            self.tsboard.update_metric('train', k, m, epoch)
+        
 
     @torch.no_grad()
     def val_epoch(self, epoch, dataloader):
