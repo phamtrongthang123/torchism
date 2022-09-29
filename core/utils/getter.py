@@ -1,4 +1,4 @@
-from torch.optim import SGD, Adam, RMSprop
+from torch.optim import SGD, Adam, RMSprop, AdamW
 from torch.optim.lr_scheduler import ReduceLROnPlateau, StepLR
 from torch.utils.data import DataLoader, random_split
 
@@ -9,7 +9,7 @@ from core.metrics import *
 from core.dataloaders import *
 from core.schedulers import *
 from core.utils.random_seed import set_seed
-
+from .exponential_moving_average import ExponentialMovingAverage
 
 def get_function(name):
     return globals()[name]
