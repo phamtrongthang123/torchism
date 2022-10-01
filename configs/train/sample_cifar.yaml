@@ -3,7 +3,7 @@ pretrained: null
 seed: 2612
 model_ema: 
     model_ema_steps: 32
-    model_ema_decay: 0.99998
+    model_ema_decay: 0.99952 # 1 - 24/datasize
 model:
     name: BaseClassifier
     args:
@@ -13,7 +13,7 @@ model:
                 version: resnet50
         nclasses: 10
 optimizer:
-    name: Adam
+    name: AdamW
     args:
         lr: 1.0e-3
 loss:
@@ -29,7 +29,7 @@ metric:
 scheduler: 
     name: WarmupLinearCosineAnnealing
     args:
-        lr_warmup_epochs: 50
+        lr_warmup_epochs: 5
 dataset: 
     train:
         name: CIFAR10Dataset
@@ -54,7 +54,7 @@ dataset:
                 pin_memory: True
 
 trainer: 
-    nepochs: 6000
+    nepochs: 600
     val_step: 1
     log_step: 1
     log_dir: runs
