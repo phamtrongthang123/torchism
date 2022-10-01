@@ -43,6 +43,10 @@ class SupervisedTrainer:
                                      self.train_id)
         # self.tsboard = TensorboardLogger(path=self.save_dir)
         self.tsboard = NeptuneLogger(project_name="thesis-master/torchism", name="test", path=self.save_dir, model_params=config)
+        self.amp = False 
+        if 'amp' in config:
+            self.amp = config['amp']
+        self.scaler = torch.cuda.amp.GradScaler() if self.amp else None
         self.model_ema = False
         if 'model_ema' in config:
             self.model_ema = config['model_ema']
@@ -165,14 +169,21 @@ class SupervisedTrainer:
             lbl = move_to(lbl, self.device)
             # 2: Clear gradients from previous iteration
             self.optimizer.zero_grad()
-            # 3: Get network outputs
-            outs = self.model(inp)
-            # 4: Calculate the loss
-            loss = self.criterion(outs, lbl)
-            # 5: Calculate gradients
-            loss.backward()
-            # 6: Performing backpropagation
-            self.optimizer.step()
+            with torch.cuda.amp.autocast(enabled=self.scaler is not None):
+                # 3: Get network outputs
+                outs = self.model(inp)
+                # 4: Calculate the loss
+                loss = self.criterion(outs, lbl)
+            
+            if self.scaler is not None:
+                self.scaler.scale(loss).backward()
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+            else:
+                # 5: Calculate gradients
+                loss.backward()
+                # 6: Performing backpropagation
+                self.optimizer.step()
             with torch.no_grad():
                 # 7: Update loss
                 running_loss.add(loss.item())
