@@ -11,3 +11,5 @@ tqdm
 rich 
 tensorboard
 neptune-client
+sphinx 
+sphinx_rtd_theme
