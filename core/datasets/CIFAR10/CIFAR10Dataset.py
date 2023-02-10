@@ -68,6 +68,9 @@ class CIFAR10Dataset():
 if __name__ == '__main__':
     ds = CIFAR10Dataset(datapath = ['/media/aioz-thang/data3/aioz-thang/jvn/torchism/data/CIFAR10/cifar-10-batches-py/test_batch'], metapath='/media/aioz-thang/data3/aioz-thang/jvn/torchism/data/CIFAR10/cifar-10-batches-py/batches.meta')
     print(len(ds))
-    for i, (im, lbl) in enumerate(ds):
+    # better use dataloader to test, because custom dataset may cause "out of range" for the index, but the dataloader will handle it. Besides, we always use dataloader to train the model
+    from torch.utils.data import DataLoader
+    dl = DataLoader(ds, batch_size=1, shuffle=True)
+    for i, (im, lbl) in enumerate(dl):
         print(im.shape, lbl)
         break
