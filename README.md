@@ -43,3 +43,25 @@ Or if you want a quick test, change the neptune logger in the trainer to tensorb
 python train.py --config configs/train/sample.yaml --gpus 0
 tensorboard --logdir=runs 
 ```
+
+## TODO: 
+I'm working on an idea of pushing the data splitting / processing to the model code only. 
+At train loop, it is just 
+```
+train_iter = iter(dataloader)
+batch = next(train_iter)
+
+loss, _ = model(batch)
+```
+And the dataset class is like 
+```
+for metadata in filepath: {k:read(v)  for kv in metadat}
+return dict / tensor
+```
+Remember to use collate_fn [x for x in batch] at the end of loader to merge them. 
+
+Then the rest of the job about data is for model to play around.
+
+
+
+
