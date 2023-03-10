@@ -44,7 +44,7 @@ python train.py --config configs/train/sample.yaml --gpus 0
 tensorboard --logdir=runs 
 ```
 
-## TODO: 
+## TODO: Lazy mode training
 I'm working on an idea of pushing the data splitting / processing to the model code only. 
 At train loop, it is just 
 ```
