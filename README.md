@@ -44,7 +44,8 @@ python train.py --config configs/train/sample.yaml --gpus 0
 tensorboard --logdir=runs 
 ```
 
-## TODO: Lazy mode training
+## TODO: 
+### Lazy mode training
 I'm working on an idea of pushing the data splitting / processing to the model code only. 
 At train loop, it is just 
 ```
@@ -61,7 +62,8 @@ return dict / tensor
 Remember to use collate_fn [x for x in batch] at the end of loader to merge them. 
 
 Then the rest of the job about data is for model to play around.
-
+### Versioning each exp
+Even if it fails, commit a tag into it with comments. Remember this common practice.
 
 
 
