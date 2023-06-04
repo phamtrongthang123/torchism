@@ -19,3 +19,4 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
+from functorch import vmap # from pytorch 2.3 will be removed, use torch.vmap in that case. For now we still use functorch.
