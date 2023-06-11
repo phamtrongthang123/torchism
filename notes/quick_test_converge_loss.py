@@ -31,6 +31,7 @@ optim = Adam([a], lr=0.1)
 # for predict 1 value to another value from 0-1, it is also good with BCE with logit loss. 
 # But keep in mind that in the end, your goal is to use the loss landscape, created by the loss function, to guide the params of the model. 
 # Sometimes, the common loss functions work. Sometimes, they don't. It's not always the case that "i think this is the most suitable" is the best answer.
+# And sometimes, your loss function won't work because of the random seed .-. Try a few random seed may help. No kidding.
 loss = nn.MSELoss() 
 
 for i in range(10000):
