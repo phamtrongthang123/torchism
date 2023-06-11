@@ -28,7 +28,7 @@ from torch.optim import Adam
 a = nn.Parameter(torch.randn((7,14,14), requires_grad=True))
 b = torch.randn((7,14,14))
 optim = Adam([a], lr=0.1)
-loss = nn.MSELoss()
+loss = nn.MSELoss() # for predict 1 value to another value from 0-1, it is also good with BCE with logit loss.
 for i in range(10000):
     optim.zero_grad()
     l = loss(a, b)
