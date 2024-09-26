@@ -54,3 +54,4 @@ if __name__ == '__main__':
         )
     )
     auc.summary()
+    # this one works but usually when we do multiclasses, the multi class = ovr, then the self.pred is the prob of each ground truth class. For example in binary classification, if your output is (N,2), then you will do roc_auc_score(self.target, self.pred[:,1], ...). This is more consistent with what is shown in the sklearn documents. 
